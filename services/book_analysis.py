@@ -1,24 +1,15 @@
-import requests
 import json
 from fastapi import HTTPException
+from services.gutenberg_service import get_book_text
 from services.text_formatting import clean_text, truncate_text
 from services.prompt_service import load_prompt, get_completion
 from utils.graph_response_util import prepare_graph
 
 
 def analyze_book(book_id: str):
-    if len(book_id) > 5 or not book_id.isdigit():
-        raise HTTPException(status_code=400, detail="book_id must be 5 or fewer digits")
+    book_text = get_book_text(book_id)
 
-    url = f"https://www.gutenberg.org/files/{book_id}/{book_id}-0.txt"
-    response = requests.get(url)
-
-    if not response.ok:
-        raise HTTPException(
-            status_code=404, detail="Book not found at Project Gutenberg"
-        )
-
-    cleaned_text = clean_text(response.text)
+    cleaned_text = clean_text(book_text)
     prompt = load_prompt("prompt.txt", text=cleaned_text)
     truncated_prompt = truncate_text(prompt)
     model_output = get_completion(truncated_prompt)
