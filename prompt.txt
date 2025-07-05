@@ -29,7 +29,7 @@ Rules to follow: (if you fail following any of those rules, the entire page will
 - There should not be any edges with 0 interactions! Only give edges where a valid interaction took place (accordingly to the definition above)
 - If a referenced node does not exist in the current nodes list, you must create and include that node in the nodes list
 - No orphan edges are allowed
-- Respond only with a valid JSON object, with no extra text or explanation. Make sure I can call "json.loads()" on your response, DON'T RETURN IT IN A CODE BLOCK
+- Respond only with a VALID JSON object, with no extra text or explanation. MAKE SURE I CAN CALL "json.loads()" on your response without failure!!!!!
 - Be smart when identifying characters, a character can be referenced by first name then later by surname, try to figure it out from context, but do not make assumptions!!!
 
 Here is the text to analyse:
